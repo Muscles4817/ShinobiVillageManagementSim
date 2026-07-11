@@ -446,5 +446,6 @@ export interface GameState {
   recruitPool: RecruitCandidate[]
   pendingEvents: EventInstance[]
   trainingAssignments: Record<string, TrainingCategory>
+  medicalPriority: string[]
   onboardingComplete: boolean
 }

@@ -61,6 +61,7 @@ export function createNewGame(contentPack: ContentPack, seed: number, villageNam
     recruitPool,
     pendingEvents: [],
     trainingAssignments: {},
+    medicalPriority: [],
     onboardingComplete: false,
   }
 }

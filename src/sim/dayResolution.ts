@@ -66,6 +66,7 @@ function progressMissions(state: GameState, rng: Rng, reportDay: number): Missio
 
     if (mission.missionDaysRemaining > 0) {
       warriors = applyFatigue(warriors, memberIds, MISSION_FATIGUE)
+      warriors = warriors.map((w) => (memberIds.includes(w.id) ? { ...w, status: 'deployed' } : w))
       const missionDaysRemaining = mission.missionDaysRemaining - 1
 
       if (missionDaysRemaining === 0) {
@@ -135,6 +136,7 @@ function progressMissions(state: GameState, rng: Rng, reportDay: number): Missio
 
     if (mission.returnTravelDaysRemaining > 0) {
       warriors = applyFatigue(warriors, memberIds, TRAVEL_FATIGUE)
+      warriors = warriors.map((w) => (memberIds.includes(w.id) ? { ...w, status: 'travelling' } : w))
       const returnTravelDaysRemaining = mission.returnTravelDaysRemaining - 1
 
       if (returnTravelDaysRemaining === 0) {
@@ -182,7 +184,7 @@ export function resolveDay(state: GameState, contentPack: ContentPack, rng: Rng)
   warriors = updateMoraleDrift(warriors)
 
   const medicalWard = state.facilities.find((f) => f.id === 'medical_ward')
-  warriors = progressHealing(warriors, medicalWard?.level ?? 1, [], rng)
+  warriors = progressHealing(warriors, medicalWard?.level ?? 1, state.medicalPriority, rng)
 
   const trainingGrounds = state.facilities.find((f) => f.id === 'training_grounds')
   warriors = warriors.map((w) => {
