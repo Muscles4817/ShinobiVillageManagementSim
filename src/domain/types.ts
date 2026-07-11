@@ -187,6 +187,7 @@ export interface ActiveMission {
   startDay: number
   travelDaysRemaining: number
   missionDaysRemaining: number
+  returnTravelDaysRemaining: number
   expectedReturnDay: number
   result?: MissionResult
 }
