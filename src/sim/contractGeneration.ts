@@ -23,14 +23,12 @@ export function generateContract(contentPack: ContentPack, rng: Rng, day: number
     else if (infoConfidence === 'fair') infoConfidence = 'poor'
   }
 
-  const destination = `${client.name.split(' ')[0]}'s territory`
-
   return {
     id: generateSeededId('contract', rng),
     templateId: template.id,
     clientId: client.id,
     title: template.title,
-    summary: template.summaryTemplate.replace('{destination}', destination),
+    summary: template.summaryTemplate.replace('{destination}', client.region),
     duration: rng.int(template.durationRange[0], template.durationRange[1]),
     travelTime: rng.int(template.travelRange[0], template.travelRange[1]),
     reward: rng.int(template.rewardRange[0], template.rewardRange[1]),

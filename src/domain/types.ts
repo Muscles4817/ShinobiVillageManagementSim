@@ -386,6 +386,7 @@ export interface ClientDefinition {
   name: string
   description: string
   favouredCategories: MissionCategory[]
+  region: string
 }
 
 export interface NarrativeFragmentSet {
