@@ -126,6 +126,15 @@ function progressMissions(state: GameState, rng: Rng, reportDay: number): Missio
             }
           }
         }
+
+        if (mission.returnTravelDaysRemaining <= 0) {
+          // No return travel needed (e.g. a zero-travel-time contract) -- the
+          // team is home the moment the contract work itself concludes.
+          teams = teams.map((t) => (t.id === team.id ? { ...t, status: 'idle' } : t))
+          warriors = warriors.map((w) => (memberIds.includes(w.id) ? { ...w, status: w.injuries.length > 0 ? 'injured' : 'available', teamId: team.id } : w))
+          continue
+        }
+
         stillActive.push({ ...mission, missionDaysRemaining: 0, result: missionResult })
         continue
       }
